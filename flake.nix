@@ -61,7 +61,7 @@
           (p: pkgs.callPackage p {});
 
       nixosModules =
-        { dotfiles = import ./core; }
+        { dotfiles = import ./.; }
         // mapModulesRec ./modules import;
 
       nixosConfigurations =

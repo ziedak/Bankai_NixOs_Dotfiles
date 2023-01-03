@@ -49,14 +49,14 @@ with inputs;
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
-  # Use the latest kernel
-  boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
+  # # Use the latest kernel
+  # boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
 
-  boot.loader = {
-    efi.canTouchEfiVariables = mkDefault true;
-    systemd-boot.configurationLimit = 10;
-    systemd-boot.enable = mkDefault true;
-  };
+  # boot.loader = {
+  #   efi.canTouchEfiVariables = mkDefault true;
+  #   systemd-boot.configurationLimit = 10;
+  #   systemd-boot.enable = mkDefault true;
+  # };
 
   # Suspend when power button is short-pressed
   services.logind.extraConfig = ''

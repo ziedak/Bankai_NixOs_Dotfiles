@@ -11,9 +11,9 @@
     fsType = "ext4";
   };
 
-  swapDevices = [ {
-    device = "/dev/disk/by-label/swap";
-  } ];
+  # swapDevices = [ {
+  #   device = "/dev/disk/by-label/swap";
+  # } ];
 
   # Do not start a sulogin shell if mounting a filesystem fails
   systemd.enableEmergencyMode = false;
