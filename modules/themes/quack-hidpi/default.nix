@@ -104,14 +104,14 @@ in {
           # Sourced from sessionCommands in modules/themes/default.nix
           "xtheme/90-theme".source = ./config/Xresources;
         }
-        (mkIf desktop.bspwm.enable {
+        (mkIf  desktop.environments.bspwm.enable {
           "bspwm/rc.d/polybar".source = ./config/polybar/launch.sh;
           "bspwm/rc.d/theme".source = ./config/bspwm/bspwmrc;
         })
         (mkIf desktop.apps.rofi.enable {
           "rofi/theme" = { source = ./config/rofi; recursive = true; };
         })
-        (mkIf (desktop.bspwm.enable || desktop.stumpwm.enable) {
+        (mkIf ( desktop.environments.bspwm.enable || desktop.stumpwm.enable) {
           "polybar" = { source = ./config/polybar; recursive = true; };
           "dunst/dunstrc".source = ./config/dunstrc;
         })
