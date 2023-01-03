@@ -106,7 +106,7 @@
       vim.enable = true;
     };
     hardware = {
-      audio.enable = true;
+      pulseaudio.enable = true;
       bluetooth.enable = false;
       disks.enable = false;
       fancontrol.enable = false;
