@@ -24,8 +24,8 @@ with lib;
   # For redshift, mainly
   # Go try find my home with those coordinates
   # as those are randomly picked within a range near my home
-  location = (if config.time.timeZone == "Europe/Vienna" then {
+  location = {
     latitude = 47.064;
     longitude = 15.428;
-  } else {});
+  };
 }
