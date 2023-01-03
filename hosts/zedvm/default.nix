@@ -106,31 +106,32 @@
       vim.enable = true;
     };
     hardware = {
-      pulseaudio.enable = true;
       bluetooth.enable = false;
       disks.enable = false;
       fancontrol.enable = false;
+      image.enable = false;
       keebs.enable = false;
       nvidia.enable = false;
       printers.enable = false;
+      pulseaudio.enable = true;
       sensors.enable = false;
       steamcon.enable = false;
       wacom.enable = false;
     };
     shell = {
+      aerc.enable = false;
       archive.enable = false;
       borg.enable = false;
-      clipboard.enable = true;
+      cli.enable = true;
+      devops.enable = true;
       direnv.enable = true;
       git.enable = true;
       gnupg.enable = false;
       iperf.enable = false;
       lf.enable = false;
-      aerc.enable = false;
       pass.enable = false;
       taskell.enable = false;
       zsh.enable = true;
-      cli.enable = false;
     };
     services = {
       containerization.enable = false;
