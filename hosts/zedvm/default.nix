@@ -14,6 +14,7 @@
       gaming = {
         retro.enable = false;
         steam.enable = false;
+      };
       environments = {
         bspwm.enable = true;
         hyprland.enable = false;

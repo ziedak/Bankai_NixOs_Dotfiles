@@ -13,6 +13,7 @@
       gaming = {
         retro.enable = true;
         steam.enable = true;
+      };
       environments = {
         bspwm.enable = true;
         hyprland.enable = true;
