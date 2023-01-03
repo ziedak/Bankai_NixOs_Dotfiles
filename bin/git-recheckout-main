@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+git fetch
+git reset --hard
+git branch -D tmp
+git checkout origin/main -b tmp
+git branch -D main
+git checkout origin/main -b main

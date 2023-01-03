@@ -1,0 +1,206 @@
+# sxhkd - Simple X HotKey Daemon
+
+## Launch applications
+## Key Sequence: ctrl + alt
+
+ctrl + alt + 1
+    kitty
+
+ctrl + alt + 2
+    firefox
+
+ctrl + alt + 3
+    keepassxc
+
+ctrl + alt + 4
+    thunar
+
+### Open all one-off terminal tools in floating xst window
+
+ctrl + alt + x
+    xst -g 80x15
+
+ctrl + alt + v
+    xst -g 80x15 pulsemixer
+
+ctrl + alt + j
+    xst -g 80x15 -f JuliaMono-18 julia
+
+ctrl + alt + p
+    xst -g 80x15 python
+
+
+## Volume Control
+
+### Mute audio
+XF86AudioMute
+	pulsemixer --toggle-mute && notify-send -u low 'Muted/Unmuted'
+
+### Raise volume
+XF86AudioRaiseVolume
+	pulsemixer --change-volume +"10" --unmute && notify-send -u low 'Raised Volume'
+ctrl + alt + Up
+	pulsemixer --change-volume +"10" --unmute && notify-send -u low 'Raised Volume'
+
+### Lower volume
+XF86AudioLowerVolume
+	pulsemixer --change-volume -"10" --unmute && notify-send -u low 'Decreased Volume'
+ctrl + alt + Down
+	pulsemixer --change-volume -"10" --unmute && notify-send -u low 'Decreased Volume'
+
+
+## Media Control
+
+### Play/Pause player
+XF86Audio{Play,Stop}
+	playerctl play-pause && notify-send -u low 'Play/Pause'
+
+### Next track
+XF86AudioNext
+	playerctl next && notify-send -u low 'Next'
+ctrl + alt + Right
+	playerctl next && notify-send -u low 'Next'
+
+### Previous track
+XF86AudioPrevious
+	playerctl previous && notify-send -u low 'Previous'
+ctrl + alt + Left
+	playerctl previous && notify-send -u low 'Previous'
+
+
+## Rofi
+
+alt + Return
+	$DOTFILES/bin/rofi/appmenu
+
+alt + comma
+	$DOTFILES/bin/rofi/clipmenu
+
+alt + period
+	$DOTFILES/bin/rofi/windowmenu
+
+# Conflict with comment shortcut in micro
+# alt + slash
+	# $DOTFILES/bin/rofi/filemenu -x
+
+alt + semicolon
+	$DOTFILES/bin/rofi/bookmarkmenu
+
+super + Return
+    $DOTFILES/bin/rofi/powermenu -x
+
+
+## Switch between preset keymaps
+super + alt + l
+    $DOTFILES/bin/keymapswitcher
+
+
+## Lock screen
+super + ctrl + l
+    xautolock -locknow
+
+## bspwm Node Controls
+## Key Sequence: super
+
+### Toggle window gap
+super + g
+    if [[ $(bspc config -d focused window_gap) -eq 150 ]]; then bspc config -d focused window_gap 20; else bspc config -d focused window_gap 150; fi
+
+### Set window state for active node
+super + {f,r,s,t}
+    bspc node -t {fullscreen,pseudo_tiled,floating,tiled}
+
+### Switch to next/previous window
+super + comma
+    bspc node -f prev
+
+super + period
+    bspc node -f next
+
+### Toggle focus follow for nodes
+super + p
+	bspc config focus_follows_pointer {false,true}
+
+## Quit active node
+super + {_,shift + }q
+	bspc node -{c,k}
+
+### Toggle polybar
+super + ctrl + p
+	polybar-msg cmd toggle && bspc config -m primary top_padding 0
+
+### Toggle Wacom device
+super + ctrl + w
+	wacom-toggle
+
+### Rotate Wacom device
+super + ctrl + r
+	wacom-rotate
+
+### Switch to desktop on last used monitor
+super + m
+    bspc monitor last --focus
+
+### Send active node to desktop on last used monitor and switch to it
+super + ctrl + m
+    bspc node -m last --follow
+
+### Switch to desktop with number
+super + {0-9}
+    bspc desktop --focus 'primary:^{10,1-9}'
+
+### Send to desktop with number and follow
+super + ctrl + {0-9}
+    bspc node -d 'primary:^{10,1-9}' --follow
+
+### Change active node
+super + {_,ctrl + }{Left,Down,Up,Right}
+	bspc node --{focus,swap} {west,south,north,east}
+
+ctrl + alt + {\[,\]}
+	bspc node --{focus} {west,east}
+
+ctrl + alt + {9,0}
+	bspc node --{swap} {west,east}
+
+### Open new node in preselected space
+super + alt + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+### Cancel resizing by preselection
+super + alt + Delete
+	bspc node -p cancel
+
+### Expand a node by moving one of its side outward
+super + ctrl + shift + {Left,Down,Up,Right}
+	bspc node -z {left -120 0,bottom 0 120,top 0 -120,right 120 0}
+
+### Contract a node by moving one of its side inward
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node -z {right -120 0,top 0 120,bottom 0 -120,left 120 0}
+
+### Move a floating node
+super + shift + {Left,Down,Up,Right}
+	bspc node -v {-120 0,0 120,0 -120,120 0}
+
+### Reload displays bspwm
+super + alt + x
+    xrandr --auto && $DOTFILES/config/bspwm/bspwmrc
+
+### Reload sxhkd
+super + Escape
+	pkill -USR1 -x sxhkd
+
+## Screen grabs
+
+### Screenshot region
+super + s
+	scrcap
+
+### Screencast region to mp4
+super + c
+	scrrec -s ~/Videos/Screen\ Recordings/$(date +%F-%T).mp4
+
+### Screencast region to gif
+super + x
+	scrrec -s ~/Videos/Screen\ Recordings/$(date +%F-%T).gif

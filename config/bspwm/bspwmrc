@@ -1,0 +1,79 @@
+#!/usr/bin/env zsh
+
+set -x
+
+export MONITORS=( $(xrandr -q | grep ' connected' | cut -d' ' -f1) )
+
+if [ ${#MONITORS[@]} -eq 2 ]; then
+    xrandr --output ${MONITORS[1]} --primary
+    xrandr --output ${MONITORS[2]} --pos 200x0 --auto
+    # set workspaces
+    bspc monitor ${MONITORS[1]} -d {Main,Dev,Pass,Music,Messaging,Office,Editing,Aux}
+    bspc monitor ${MONITORS[2]} -d Other
+elif [[ $(hostname) == 'purple' ]] || [[ $(hostname) == 'violet' ]] ; then
+    xrandr --output ${MONITORS[1]} --primary
+    bspc monitor ${MONITORS[1]} -d {Main,Dev,Pass,Music,Messaging,Office,Editing,Aux}
+else
+    xrandr --auto
+    bspc monitor ${MONITORS[1]} -d {Main,Dev,Pass,Music,Messaging,Office,Editing,Aux}
+fi
+
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+
+# Rules
+bspc rule -r "*"
+
+## General
+bspc rule -a "xst-256color" state=floating
+bspc rule -a "spectacle"
+## Desktop 2 - Dev
+bspc rule -a "jetbrains-idea" desktop="Dev"
+## Desktop 3 - Pass
+bspc rule -a "KeePassXC" desktop="Pass"
+bspc rule -a "Mullvad VPN" state=tiled desktop="Pass"
+## Desktop 4 - Music
+bspc rule -a "Lollypop" desktop="Music"
+bspc rule -a "Picard" desktop="Music"
+## Desktop 5 - Messaging
+bspc rule -a "Signal" desktop="Messaging"
+bspc rule -a "TelegramDesktop" desktop="Messaging"
+## Desktop 6 - Office
+bspc rule -a "Thunderbird" desktop="Office"
+bspc rule -a "QOwnNotes" desktop="Office"
+## Desktop 7 - Editing
+bspc rule -a "Gimp-2.10" desktop="Editing"
+bspc rule -a "Inkscape" desktop="Editing"
+## Other monitor
+bspc rule -a "discord" desktop="Aux"
+bspc rule -a "Chromium-browser" desktop="Aux"
+## Dock
+bspc rule -a "plank" layer=above manage=on border=off
+
+# Source rc files
+for file in $XDG_CONFIG_HOME/bspwm/rc.d/*; do
+  source "$file"
+done
+
+# Source autostart scripts
+
+feh --bg-center $DOTFILES/modules/themes/quack/config/wallpaper.png
+
+# workaround to autostart a couple daemons
+if ! pgrep mullvad > /dev/null; then
+    command -v mullvad >/dev/null && mullvad connect &
+fi
+
+if ! pgrep greenclip > /dev/null; then
+    greenclip daemon >/dev/null &
+fi
+
+if ! pgrep udiskie > /dev/null; then
+    udiskie --tray -aF &
+fi
+
+# Autostart scc-daemon for a working Steam controller
+pkill scc-daemon || scc-daemon start > /dev/null &
+
+# Autostart plank
+pkill plank || plank -n default > /dev/null &

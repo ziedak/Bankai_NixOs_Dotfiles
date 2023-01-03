@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+# switches through listed layouts whenever script is run
+KEYMAPS=("eu" "ru")
+# "us" "at" "us -variant colemak" "kh")
+
+# replace current layout in array with "/" and get index
+KEYMAP_INDEX=`echo ${KEYMAPS[@]/$(xkbmon -o)//} | cut -d/ -f1 | wc -w | tr -d ' '`
+
+echo $KEYMAP_INDEX
+
+KEYMAP_INDEX=$[$KEYMAP_INDEX+1]
+
+if [ $KEYMAP_INDEX -lt ${#KEYMAPS[@]} ]
+then
+    KEYMAP_INDEX=$[$KEYMAP_INDEX+1]
+else
+    KEYMAP_INDEX=1
+fi
+
+echo "Switched to keymap: ${KEYMAPS[$KEYMAP_INDEX]}" && setxkbmap ${KEYMAPS[$KEYMAP_INDEX]} && notify-send -u low "Switched to keymap: ${KEYMAPS[$KEYMAP_INDEX]}"
