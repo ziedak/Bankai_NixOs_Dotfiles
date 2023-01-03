@@ -19,8 +19,8 @@ with lib;
     in mkIf (builtins.elem hostName hosts) hostConfig;
 
   ## Location config -- since Vienna is my 127.0.0.1
-  time.timeZone = mkDefault "Europe/Vienna";
-  i18n.defaultLocale = mkDefault "en_US.UTF-8";
+  # time.timeZone = mkDefault "Europe/Vienna";
+  # i18n.defaultLocale = mkDefault "en_US.UTF-8";
   # For redshift, mainly
   # Go try find my home with those coordinates
   # as those are randomly picked within a range near my home

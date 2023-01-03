@@ -1,4 +1,5 @@
 { ... }:
+
 {
   imports = [
     ../personal.nix
@@ -11,22 +12,22 @@
   modules = {
     desktop = {
       gaming = {
-        retro.enable = true;
-        steam.enable = true;
+        retro.enable = false;
+        steam.enable = false;
       environments = {
         bspwm.enable = true;
         hyprland.enable = false;
-        kde-plasma.enable = true;
+        kde-plasma.enable = false;
       };
       clipboard.enable = true;
       documents.enable = false;
       fonts.enable = true;
       flatpak.enable = false;
-      fm.enable = true;
-      keepassxc.enable = true;
+      fm.enable = false;
+      keepassxc.enable = false;
       kvantum.enable = false;
-      mail.enable = true;
-      plank.enable = true;
+      mail.enable = false;
+      plank.enable = false;
       screenshot.enable = true;
       mapping.enable = false;
       apps = {
@@ -47,7 +48,7 @@
         default = "firefox";
         chromium.enable = false;
         firefox.enable = true;
-        lynx.enable = true;
+        lynx.enable = false;
         tor.enable = false;
       };
       communication = {
@@ -55,18 +56,18 @@
         discord.enable = false;
         jitsi.enable = false;
         matrix.enable = false;
-        signal.enable = true;
-        telegram.enable = true;
+        signal.enable = false;
+        telegram.enable = false;
       };
       media = {
         audio.enable = true;
         daw.enable = false;
         graphics.enable = true;
-        kodi.enable = true;
+        kodi.enable = false;
         ncmpcpp.enable = false;
         video = {
           editing.enable = false;
-          player.enable = true;
+          player.enable = false;
           recording.enable = false;
           transcoding.enable = false;
         };
@@ -77,6 +78,7 @@
         kitty.enable = true;
       };
       vm = {
+        vmware.enable = false;
         qemu.enable = false;
         virtualbox.enable = false;
         virt-manager.enable = false;
@@ -97,65 +99,65 @@
       scala.enable = false;
     };
     editors = {
-      default = "hx";
-      helix.enable = true;
-      micro.enable = true;
+      default = "vim";
+      helix.enable = false;
+      micro.enable = false;
       vim.enable = true;
     };
     hardware = {
       audio.enable = true;
-      bluetooth.enable = true;
-      disks.enable = true;
-      fancontrol.enable = true;
-      keebs.enable = true;
+      bluetooth.enable = false;
+      disks.enable = false;
+      fancontrol.enable = false;
+      keebs.enable = false;
       nvidia.enable = false;
-      printers.enable = true;
-      sensors.enable = true;
-      steamcon.enable = true;
-      wacom.enable = true;
+      printers.enable = false;
+      sensors.enable = false;
+      steamcon.enable = false;
+      wacom.enable = false;
     };
     shell = {
-      archive.enable = true;
-      borg.enable = true;
+      archive.enable = false;
+      borg.enable = false;
       clipboard.enable = true;
       direnv.enable = true;
       git.enable = true;
-      gnupg.enable = true;
-      iperf.enable = true;
-      lf.enable = true;
-      aerc.enable = true;
-      pass.enable = true;
-      taskell.enable = true;
+      gnupg.enable = false;
+      iperf.enable = false;
+      lf.enable = false;
+      aerc.enable = false;
+      pass.enable = false;
+      taskell.enable = false;
       zsh.enable = true;
-      cli.enable = true;
+      cli.enable = false;
     };
     services = {
-      containerization.enable = true;
+      containerization.enable = false;
       containers = {
-        snowflake.enable = true;
+        snowflake.enable = false;
       };
       pods = {
         languagetool.enable = false;
         penpot.enable = false;
-        scrutiny.enable = true;
+        scrutiny.enable = false;
         vaultwarden.enable = false;
       };
       gitea.enable = false;
       jellyfin.enable	= false;
-      kdeconnect.enable = true;
+      kdeconnect.enable = false;
       k8s.enable = false;
       nginx.enable = false;
-      vpn.enable = true;
-      ssh.enable = true;
-      syncthing.enable = true;
+      vpn.enable = false;
+      ssh.enable = false;
+      syncthing.enable = false;
       transmission.enable = false;
     };
     theme.active = "quack-hidpi";
   };
 
   ## Local config
-  programs.ssh.startAgent = true;
-  services.openssh.startWhenNeeded = true;
+  programs.ssh.startAgent = false;
+  services.openssh.startWhenNeeded = false;
   networking.networkmanager.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false
@@ -165,11 +167,11 @@
 
   # Set eurkey as default layout
   # Optionally set more keymaps and use them with bin/keymapswitcher
-  services.xserver.layout = "eu";
+  services.xserver.layout = "fr";
 
   # Set default monitor
   environment.variables = rec {
-    MAIN_MONITOR = "HDMI-A-0";
+    MAIN_MONITOR = "Virtual-1";
   };
 
   programs.dconf.enable = true;
